@@ -6,7 +6,31 @@
         xmlns:local="clr-namespace:Personas"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
+
+    <Window.Resources>
+
+        <local:IndexConverter x:Key="IndexConverter"/>
+        <local:GenreConverter x:Key="GenreConverter"/>
+
+        <DataTemplate x:Key="personaItem">
+            <StackPanel Orientation="Horizontal">
+                <Ellipse Width="42" Height="42" RenderOptions.BitmapScalingMode="Fant">
+                    <Ellipse.Fill> 
+                        <ImageBrush x:Name="personImage" ImageSource="{Binding Foto}"/>
+                    </Ellipse.Fill>
+                </Ellipse>
+                <TextBlock Text="{Binding Nombre}"/>
+                <Image Source="{Binding Sexo, Converter={StaticResource GenreConverter}}" Width="42" Height="42"/>
+            </StackPanel>
+        </DataTemplate>
         
-    </Grid>
+    </Window.Resources>
+
+    <StackPanel>
+        <ComboBox x:Name="personaListBox" ItemsSource="{Binding}" ItemTemplate="{StaticResource personaItem}" Width="200" Height="42"/>
+        <TextBlock>
+            El usuario seleccionado es: <TextBlock Text="{Binding ElementName=personaListBox, Path=SelectedIndex, Converter={StaticResource IndexConverter}}"/>
+        </TextBlock>
+        
+    </StackPanel>
 </Window>

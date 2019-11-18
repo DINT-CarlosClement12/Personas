@@ -23,6 +23,8 @@ namespace Personas
         public MainWindow()
         {
             InitializeComponent();
+
+            personaListBox.DataContext = Persona.GetPersonas();
         }
     }
 }
